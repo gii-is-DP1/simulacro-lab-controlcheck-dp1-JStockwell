@@ -10,15 +10,21 @@ import org.springframework.data.repository.query.Param;
 
 
 
-public interface ProductRepository extends CrudRepository<Product, Integer> {
+public interface ProductRepository extends CrudRepository<Product, Integer>{
+
     List<Product> findAll();
-    @Query("SELECT product_type FROM ProductType product_type")
+    
+	@Query("SELECT prodtype FROM ProductType prodtype")
     List<ProductType> findAllProductTypes() throws DataAccessException;
+
+    @Query("SELECT prodtype FROM ProductType prodtype WHERE prodtype.name LIKE :name%")
+    ProductType findProductTypeByName(@Param("name") String name) throws DataAccessException;
+
+    @Query("SELECT prod FROM Product prod WHERE prod.price <= :price")
+    List<Product> findByPriceLessThan(@Param("price") Double price) throws DataAccessException;
+
     Optional<Product> findById(int id);
+
     Product findByName(String name);
     Product save(Product p);
-    @Query("SELECT product_type FROM ProductType product_type WHERE product_type.name LIKE :name%")
-    ProductType findProductTypeByName(@Param("name") String name) throws DataAccessException;
-    @Query("SELECT product FROM Products product WHERE product.price <= :thresholdPrice")
-    List<Product> findByPriceLessThan(@Param("thresholdPrice") Double thresholdPrice) throws DataAccessException;
 }

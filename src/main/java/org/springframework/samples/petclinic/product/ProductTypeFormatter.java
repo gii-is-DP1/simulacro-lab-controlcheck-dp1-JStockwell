@@ -11,12 +11,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProductTypeFormatter implements Formatter<ProductType>{
 
-    private final ProductService prService;
-
     @Autowired
-    public ProductTypeFormatter(ProductService productService) {
-        this.prService = productService;
-    }
+    private ProductService productService;
 
     @Override
     public String print(ProductType object, Locale locale) {
@@ -25,12 +21,13 @@ public class ProductTypeFormatter implements Formatter<ProductType>{
 
     @Override
     public ProductType parse(String text, Locale locale) throws ParseException {
-        Collection<ProductType> getAllProductTypes = this.prService.getAllProductTypes();
-        for(ProductType type : getAllProductTypes) {
-            if (type.getName().equals(text)) {
+
+        Collection<ProductType> findProductTypes = this.productService.getAllProductTypes();
+		for (ProductType type : findProductTypes) {
+			if (type.getName().equals(text)) {
 				return type;
 			}
-        }
+		}
 		throw new ParseException("type not found: " + text, 0);
     }
     
