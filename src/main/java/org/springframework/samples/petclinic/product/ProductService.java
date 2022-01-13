@@ -25,4 +25,8 @@ public class ProductService {
         return null;       
     }
 
+    public List<ProductType> getAllProductTypes(){
+        return productRepository.findAllProductTypes();
+    }
+
 }
