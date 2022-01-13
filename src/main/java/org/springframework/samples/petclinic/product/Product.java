@@ -1,6 +1,8 @@
 package org.springframework.samples.petclinic.product;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -19,5 +21,7 @@ public class Product extends NamedEntity {
     @Min(0)
     double price;
 
+    @ManyToOne
+    @JoinColumn(name = "product_type_id")
     ProductType productType;
 }
