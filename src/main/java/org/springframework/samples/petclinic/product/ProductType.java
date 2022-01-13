@@ -9,6 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ProductType{
+@Entity
+public class ProductType extends NamedEntity {
 
 }
