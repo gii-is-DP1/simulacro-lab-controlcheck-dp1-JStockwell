@@ -29,4 +29,8 @@ public class ProductService {
         return productRepository.findAllProductTypes();
     }
 
+    public List<Product> getProductsCheaperThan(Double thresholdPrice) {
+        return productRepository.findByPriceLessThan(thresholdPrice);
+    }
+
 }

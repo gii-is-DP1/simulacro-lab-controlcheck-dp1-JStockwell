@@ -19,4 +19,6 @@ public interface ProductRepository extends CrudRepository<Product, Integer> {
     Product save(Product p);
     @Query("SELECT product_type FROM ProductType product_type WHERE product_type.name LIKE :name%")
     ProductType findProductTypeByName(@Param("name") String name) throws DataAccessException;
+    @Query("SELECT product FROM Products product WHERE product.price <= :thresholdPrice")
+    List<Product> findByPriceLessThan(@Param("thresholdPrice") Double thresholdPrice) throws DataAccessException;
 }
